@@ -28,13 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
+        android:layout_marginTop="40dp"
+        android:singleLine="true"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="39dp"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:singleLine="true" />
+        android:layout_toLeftOf="@+id/btnAdd"
+        android:layout_toStartOf="@+id/btnAdd" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -54,5 +52,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView"
         android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="false" />
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,7 +33,8 @@ public class TodoMain extends AppCompatActivity {
         _editTextValue= (EditText)findViewById(R.id.editText);
         _listView = (ListView)findViewById(R.id.listView);
 
-        _arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, _masterTodoList);
+        _listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        _arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, _masterTodoList);
         _listView.setAdapter(_arrayAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -41,6 +43,17 @@ public class TodoMain extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        _listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3){
+                //String s = (String) _listView.getItemAtPosition(position);
+                //_masterTodoList.remove(s);
+                //_arrayAdapter.notifyDataSetChanged();
+
+                
+                _arrayAdapter.notifyDataSetChanged();
             }
         });
     }
