@@ -34,28 +34,8 @@ public class TodoMain extends AppCompatActivity {
         _listView = (ListView)findViewById(R.id.listView);
 
         _listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        _arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, _masterTodoList);
+        _arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, _masterTodoList);
         _listView.setAdapter(_arrayAdapter);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        _listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3){
-                //String s = (String) _listView.getItemAtPosition(position);
-                //_masterTodoList.remove(s);
-                //_arrayAdapter.notifyDataSetChanged();
-
-                
-                _arrayAdapter.notifyDataSetChanged();
-            }
-        });
     }
 
     @Override
