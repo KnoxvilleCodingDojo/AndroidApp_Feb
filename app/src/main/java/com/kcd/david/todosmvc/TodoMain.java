@@ -13,6 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class TodoMain extends AppCompatActivity {
@@ -24,7 +28,21 @@ public class TodoMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        try {
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(
+                    openFileInput("newTestFile")));
+
+            String stra;
+            while((stra = inputReader.readLine()) != null){
+                _masterTodoList.add(stra);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.activity_todo_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,8 +79,22 @@ public class TodoMain extends AppCompatActivity {
     }
 
     public void doSomething(View view){
-        _masterTodoList.add(_editTextValue.getText().toString());
+        String newTodoItem = _editTextValue.getText().toString();
+        writeFile(newTodoItem);
+        _masterTodoList.add(newTodoItem);
         _editTextValue.setText("");
         _arrayAdapter.notifyDataSetChanged();
+    }
+
+    public void writeFile(String stringToWrite){
+        FileOutputStream outputStream;
+        try{
+            outputStream = openFileOutput("newTestFile", this.MODE_PRIVATE);
+
+            outputStream.write((stringToWrite + "\n").getBytes());
+            outputStream.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
