@@ -31,17 +31,7 @@ public class TodoMain extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        try {
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(
-                    openFileInput("newTestFile")));
-
-            String stra;
-            while((stra = inputReader.readLine()) != null){
-                _masterTodoList.add(stra);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        readFile();
 
         setContentView(R.layout.activity_todo_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -89,10 +79,28 @@ public class TodoMain extends AppCompatActivity {
     public void writeFile(String stringToWrite){
         FileOutputStream outputStream;
         try{
-            outputStream = openFileOutput("newTestFile", this.MODE_PRIVATE);
+            outputStream = openFileOutput("newTestFile", this.MODE_APPEND);
 
             outputStream.write((stringToWrite + "\n").getBytes());
             outputStream.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void readFile(){
+        try {
+            File file = new File(getFilesDir(), "newTestFile");
+            if(!file.exists()){
+                return;
+            }
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(
+                    openFileInput("newTestFile")));
+
+            String stra;
+            while((stra = inputReader.readLine()) != null){
+                _masterTodoList.add(stra);
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
